@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tech Zone Digital Services</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#0b0b0b;
+color:#fff;
+}
+
+/* HEADER */
+
+header{
+position:fixed;
+top:0;
+width:100%;
+background:#111;
+padding:15px 8%;
+z-index:1000;
+box-shadow:0 0 10px rgba(0,217,255,.15);
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo{
+color:#00d9ff;
+font-size:28px;
+font-weight:700;
+letter-spacing:1px;
+}
+
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+nav a{
+color:#fff;
+text-decoration:none;
+transition:.3s;
+}
+
+nav a:hover{
+color:#00d9ff;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+
+background:
+linear-gradient(rgba(0,0,0,.78),rgba(0,0,0,.88)),
+url('https://images.unsplash.com/photo-1498050108023-c5249f4df085');
+
+background-size:cover;
+background-position:center;
+}
+
+.hero h1{
+font-size:60px;
+margin-bottom:15px;
+}
+
+.hero span{
+color:#00d9ff;
+}
+
+.hero p{
+font-size:18px;
+opacity:.9;
+}
+
+/* BUTTON */
+
+.btn{
+display:inline-block;
+background:#00d9ff;
+color:#000;
+padding:12px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+border:none;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{
+transform:scale(1.05);
+box-shadow:0 0 20px rgba(0,217,255,.4);
+}
+
+/* SECTION */
+
+section{
+padding:90px 8%;
+}
+
+.title{
+text-align:center;
+margin-bottom:40px;
+}
+
+.title h2{
+color:#00d9ff;
+font-size:35px;
+}
+
+/* SERVICES */
+
+.services{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+/* SERVICE CARD */
+
+.card{
+background:#151515;
+padding:25px;
+border-radius:15px;
+cursor:pointer;
+border:1px solid #222;
+transition:.4s;
+position:relative;
+overflow:hidden;
+}
+
+/* DESKTOP HOVER */
+
+.card:hover{
+border-color:#00d9ff;
+transform:translateY(-5px);
+box-shadow:0 0 20px rgba(0,217,255,.35);
+}
+
+/* SHINING EFFECT */
+
+.card::before{
+
+content:'';
+
+position:absolute;
+
+top:0;
+left:-120%;
+
+width:50%;
+height:100%;
+
+background:
+linear-gradient(
+120deg,
+transparent,
+rgba(255,255,255,.22),
+transparent
+);
+
+transform:skewX(-25deg);
+
+}
+
+/* HOVER SHINE */
+
+.card:hover::before{
+animation:shine 1s;
+}
+
+/* DESKTOP SHINE */
+
+@keyframes shine{
+
+100%{
+left:140%;
+}
+
+}
+
+/* MOBILE AUTO SHINE */
+
+@media(max-width:768px){
+
+.card::before{
+animation:mobileShine 2.5s infinite;
+}
+
+@keyframes mobileShine{
+
+0%{
+left:-120%;
+}
+
+35%{
+left:140%;
+}
+
+100%{
+left:140%;
+}
+
+}
+
+nav ul{
+display:none;
+}
+
+.hero h1{
+font-size:40px;
+}
+
+}
+
+/* ABOUT */
+
+.owner{
+max-width:550px;
+margin:auto;
+background:#151515;
+padding:30px;
+border:2px solid #00d9ff;
+border-radius:20px;
+text-align:center;
+box-shadow:0 0 25px rgba(0,217,255,.15);
+}
+
+/* FORM */
+
+.form-box{
+max-width:650px;
+margin:auto;
+background:#151515;
+padding:25px;
+border-radius:15px;
+border:1px solid #00d9ff;
+display:none;
+}
+
+.form-box input,
+.form-box textarea{
+width:100%;
+padding:14px;
+margin:10px 0;
+border:none;
+border-radius:8px;
+outline:none;
+background:#222;
+color:#fff;
+}
+
+/* FOOTER */
+
+footer{
+text-align:center;
+background:#050505;
+padding:20px;
+}
+
+/* FLOATING WHATSAPP */
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+color:#fff;
+width:60px;
+height:60px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+text-decoration:none;
+font-size:28px;
+box-shadow:0 0 20px rgba(37,211,102,.4);
+}
+
+</style>
+
+<script>
+
+let selectedService = "";
+
+/* OPEN FORM */
+
+function contactService(service){
+
+selectedService = service;
+
+document.getElementById("selectedService").innerText =
+service;
+
+document.getElementById("serviceForm").style.display =
+"block";
+
+document.getElementById("contact").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+/* SEND TO WHATSAPP */
+
+function sendWhatsApp(){
+
+let name =
+document.getElementById("customerName").value.trim();
+
+let phone =
+document.getElementById("customerPhone").value.trim();
+
+let requirement =
+document.getElementById("customerRequirement").value.trim();
+
+/* VALIDATION */
+
+if(name === ""){
+alert("Please enter your name.");
+return;
+}
+
+if(!/^[0-9]{10}$/.test(phone)){
+alert("Phone number must be exactly 10 digits.");
+return;
+}
+
+if(requirement === ""){
+alert("Please describe your requirement.");
+return;
+}
+
+/* MESSAGE */
+
+let message =
+`Hello Tech Zone
+
+Name: ${name}
+
+Phone Number: ${phone}
+
+I need your service: ${selectedService}
+
+My Requirement:
+${requirement}
+
+Please let me know the cost and estimated completion time.
+
+Thank you.`;
+
+/* CLEAR FORM */
+
+document.getElementById("customerName").value = "";
+document.getElementById("customerPhone").value = "";
+document.getElementById("customerRequirement").value = "";
+
+/* OPEN WHATSAPP */
+
+let whatsappUrl =
+"https://wa.me/919140278556?text=" +
+encodeURIComponent(message);
+
+window.open(whatsappUrl, "_blank");
+
+}
+
+/* GENERAL WHATSAPP */
+
+function openGeneralWhatsApp(){
+
+selectedService = "";
+
+document.getElementById("customerName").value = "";
+document.getElementById("customerPhone").value = "";
+document.getElementById("customerRequirement").value = "";
+
+let message = "Hello Tech Zone";
+
+let whatsappUrl =
+"https://wa.me/919140278556?text=" +
+encodeURIComponent(message);
+
+window.open(whatsappUrl, "_blank");
+
+}
+
+/* HIDE FORM */
+
+function hideForm(){
+
+document.getElementById("serviceForm").style.display =
+"none";
+
+document.getElementById("customerName").value = "";
+document.getElementById("customerPhone").value = "";
+document.getElementById("customerRequirement").value = "";
+
+document.getElementById("services").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<header>
+
+<nav>
+
+<div class="logo">
+TECH ZONE
+</div>
+
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#services">Services</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
+</nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div>
+
+<h1>
+Welcome to <span>Tech Zone</span>
+</h1>
+
+<p>
+Your One-Stop Digital Service Center in Prayagraj, Uttar Pradesh, India
+</p>
+
+<br>
+
+<a class="btn" href="#services">
+Explore Services
+</a>
+
+</div>
+
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+
+<div class="title">
+<h2>Our Services</h2>
+</div>
+
+<div class="services">
+
+<div class="card" onclick="contactService('Report, Documentation & Data Management')">
+📊 Report, Documentation & Data Management
+</div>
+
+<div class="card" onclick="contactService('Website Design & Creation')">
+🌐 Website Design & Creation
+</div>
+
+<div class="card" onclick="contactService('Complete Cyber Cafe Services')">
+💻 Complete Cyber Cafe Services
+</div>
+
+<div class="card" onclick="contactService('Printing & Documentation')">
+🖨️ Printing & Documentation
+</div>
+
+<div class="card" onclick="contactService('Software Designing')">
+⚙️ Software Designing
+</div>
+
+<div class="card" onclick="contactService('Game Designing')">
+🎮 Game Designing
+</div>
+
+<div class="card" onclick="contactService('Graphic Design')">
+🎨 Graphic Design
+</div>
+
+<div class="card" onclick="contactService('Logo Design')">
+🏷️ Logo Design
+</div>
+
+<div class="card" onclick="contactService('Banner & Poster Design')">
+📢 Banner & Poster Design
+</div>
+
+<div class="card" onclick="contactService('Social Media Post Design')">
+📱 Social Media Post Design
+</div>
+
+<div class="card" onclick="contactService('Video Editing')">
+🎬 Video Editing
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="title">
+<h2>About Us</h2>
+</div>
+
+<div class="owner">
+
+<h3>Anshul</h3>
+
+<p>
+<b>Owner & Manager</b>
+</p>
+
+<br>
+
+<p>📞 +91 9140278556</p>
+
+<p>📧 anshul@sgn10.com</p>
+
+<br>
+
+<p>
+Tech Zone provides website development, software solutions,
+cyber cafe services, graphic design,
+printing and digital support.
+</p>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="title">
+<h2>Contact Us</h2>
+</div>
+
+<!-- FORM -->
+
+<div id="serviceForm" class="form-box">
+
+<h3>
+Selected Service:
+<span id="selectedService"></span>
+</h3>
+
+<input
+type="text"
+id="customerName"
+placeholder="Your Name">
+
+<input
+type="tel"
+id="customerPhone"
+placeholder="Phone Number">
+
+<textarea
+id="customerRequirement"
+rows="5"
+placeholder="Describe your requirement"></textarea>
+
+<button
+class="btn"
+onclick="sendWhatsApp()">
+Send to TECH ZONE WhatsApp
+</button>
+
+<button
+class="btn"
+onclick="hideForm()"
+style="background:#444;color:white;margin-left:10px;">
+Back
+</button>
+
+</div>
+
+<!-- GENERAL WHATSAPP -->
+
+<div style="text-align:center;margin-top:20px">
+
+<a
+class="btn"
+onclick="openGeneralWhatsApp()">
+WhatsApp Us
+</a>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<p>
+© 2026 Tech Zone Digital Services
+</p>
+
+<br>
+
+<p>
+Managed by Anshul |
++91 9140278556 |
+anshul@sgn10.com
+</p>
+
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+
+<a
+class="whatsapp"
+onclick="openGeneralWhatsApp()">
+💬
+</a>
+
+</body>
+</html>
